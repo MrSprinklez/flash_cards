@@ -20,8 +20,14 @@ class FlashCard():
 
 def get_file_type(fl):
     if fl.endswith(".txt"):
-        num_lines = sum(1 for line in open(fl))#if line.rstrip('\n')
-        return(open(fl),num_lines)
+        #num_lines = sum(1 for line in open(fl))#if line.rstrip('\n')
+        filename = open(fl)
+        text = filename.readlines()     # creates a list using the text from the file
+        for i in range(len(text)):      # for every new line in the list
+            text[i] = text[i].rstrip('\r\n')    # remove the newline indicator
+        text = filter(None, text)   # filter the empty strings out of the list
+        return(text, len(text))     # return the final list and it's length
+        
     elif fl.endswith(".docx"):
         #num_lines = sum(1 for line in get_docx_text(fl)) #make new function for it
         #print(get_docx_text(fl))
