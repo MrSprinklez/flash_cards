@@ -13,8 +13,7 @@ Module that extract text from MS XML Word document (.docx).
 class FlashCard():
     def __init__(self,question,answer,colour,image):
         self.question = question
-        self.answer = answer 
-        self.colour = colour
+        self.answer = answer
         self.image = image 
         
 
