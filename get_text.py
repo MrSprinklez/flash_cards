@@ -129,8 +129,8 @@ def get_data(fl,stack_name): #fl is file
                 flash_cards.append(FlashCard(q,a,"grey","none"))
                 #writer.writerow({'Question':line[0:line.index(":")], "Answer": line[line.index(":")+1:]})
                 #break
-    if fl.endswith(".txt"):
-        data_file.close() 
+    #if fl.endswith(".txt"):
+        #data_file.close() 
     with open(stack_name+".obj", "wb") as fp:
         pickle.dump(flash_cards, fp)
 
