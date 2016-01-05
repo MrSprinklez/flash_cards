@@ -19,7 +19,7 @@ class FlashCard():
         self.image = image 
 
 def get_file_type(fl):
-    if fl.endswith(".txt"):
+    if fl.endswith(".txt") or fl.endswith(".rtf"):
         #num_lines = sum(1 for line in open(fl))#if line.rstrip('\n')
         filename = open(fl)
         text = filename.readlines()     # creates a list using the text from the file
