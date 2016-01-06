@@ -104,22 +104,41 @@ class DeckWindow(wx.Frame):
         self.SetBackgroundColour("White")
         self.quote = wx.StaticText(self, label= "", pos = (60,60))
         vbox = wx.BoxSizer(wx.VERTICAL)
-        self.toolbar = wx.ToolBar(self, -1, style=wx.TB_HORIZONTAL | wx.NO_BORDER)
-        self.toolbar.AddSimpleTool(1, wx.Image(edit_page, wx.BITMAP_TYPE_PNG).ConvertToBitmap(), 'Edit', '')
-        self.toolbar.AddSimpleTool(2, wx.Image(open_file, wx.BITMAP_TYPE_PNG).ConvertToBitmap(), 'Open', '')
-        self.toolbar.AddSimpleTool(3, wx.Image(colour_picker, wx.BITMAP_TYPE_PNG).ConvertToBitmap(), 'Change Colour', '')
-        self.toolbar.AddSimpleTool(4, wx.Image(door_exit, wx.BITMAP_TYPE_PNG).ConvertToBitmap(), 'Exit', '')
-        self.toolbar.Realize()
+        if os.name == "posix":
+            filemenu= wx.Menu()   
+            menuEdit = filemenu.Append(wx.ID_SAVE, "&Edit\tCtrl+E", "Edit file")
+            menuOpen = filemenu.Append(wx.ID_OPEN, "&Open\tCtrl+O","Open a new file")
+            menuColour = filemenu.Append(wx.ID_ABOUT, "&Colour\tCtrl+I"," Change Colour")
+            menuExit = filemenu.Append(wx.ID_EXIT,"&Exit\tCtrl+Q"," Terminate the program")
+
+            menuBar = wx.MenuBar()
+            menuBar.Append(filemenu,"&File") # Adding the "filemenu" to the MenuBar
+            self.SetMenuBar(menuBar)  # Adding the MenuBar to the Frame content. 
+
+            self.Bind(wx.EVT_MENU, self.Edit, menuEdit)
+            self.Bind(wx.EVT_MENU, self.Open, menuOpen)
+            self.Bind(wx.EVT_MENU, self.color, menuColour)
+            self.Bind(wx.EVT_MENU, self.Exit, menuExit)
+
+        else:
+            self.toolbar = wx.ToolBar(self, -1, style=wx.TB_HORIZONTAL | wx.NO_BORDER)
+            self.toolbar.AddSimpleTool(1, wx.Image(edit_page, wx.BITMAP_TYPE_PNG).ConvertToBitmap(), 'Edit', '')
+            self.toolbar.AddSimpleTool(2, wx.Image(open_file, wx.BITMAP_TYPE_PNG).ConvertToBitmap(), 'Open', '')
+            self.toolbar.AddSimpleTool(3, wx.Image(colour_picker, wx.BITMAP_TYPE_PNG).ConvertToBitmap(), 'Change Colour', '')
+            self.toolbar.AddSimpleTool(4, wx.Image(door_exit, wx.BITMAP_TYPE_PNG).ConvertToBitmap(), 'Exit', '')
+            self.toolbar.Realize()
+            
+            self.Bind(wx.EVT_TOOL, self.Edit, id=1)
+            self.Bind(wx.EVT_TOOL, self.Open, id=2)
+            self.Bind(wx.EVT_TOOL, self.color, id=3)
+            self.Bind(wx.EVT_TOOL, self.Exit, id=4)
+            self.Bind(wx.EVT_CLOSE, self.Exit)
+
+
         #vbox.Add(toolbar, 0, border=0)
         #self.SetSizer(vbox
         self.Centre()
 
-
-        self.Bind(wx.EVT_TOOL, self.Edit, id=1)
-        self.Bind(wx.EVT_TOOL, self.Open, id=2)
-        self.Bind(wx.EVT_TOOL, self.color, id=3)
-        self.Bind(wx.EVT_TOOL, self.Exit, id=4)
-        self.Bind(wx.EVT_CLOSE, self.Exit)
 
         # A button
         self.button =wx.Button(self, label="Previous", pos=(10, 80), size = (50,50))
