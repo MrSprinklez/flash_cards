@@ -119,6 +119,8 @@ class DeckWindow(wx.Frame):
             self.Bind(wx.EVT_MENU, self.Open, menuOpen)
             self.Bind(wx.EVT_MENU, self.color, menuColour)
             self.Bind(wx.EVT_MENU, self.Exit, menuExit)
+            self.Bind(wx.EVT_CLOSE, self.Exit)
+            
 
         else:
             self.toolbar = wx.ToolBar(self, -1, style=wx.TB_HORIZONTAL | wx.NO_BORDER)
