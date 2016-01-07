@@ -15,11 +15,11 @@ class FlashCard():
     def __init__(self,question,answer,colour,image):
         self.question = question
         self.answer = answer 
-        self.colour = colour
+        #self.colour = colour
         self.image = image 
 
 def get_file_type(fl):
-    if fl.endswith(".txt")# or fl.endswith(".rtf"):
+    if fl.endswith(".txt"):# or fl.endswith(".rtf"):
         #num_lines = sum(1 for line in open(fl))#if line.rstrip('\n')
         filename = open(fl)
         text = filename.readlines()     # creates a list using the text from the file
