@@ -184,7 +184,8 @@ class DeckWindow(wx.Frame):
             dlg.Destroy()
             self.SetBackgroundColour(Colour)
             self.control.SetBackgroundColour(Colour)
-            self.toolbar.SetBackgroundColour(Colour)
+            if os.name != 'posix':
+                self.toolbar.SetBackgroundColour(Colour)
             self.Refresh()
         
     def Previous(self,event):
