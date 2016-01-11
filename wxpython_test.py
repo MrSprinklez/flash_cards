@@ -105,7 +105,7 @@ class DeckWindow(wx.Frame):
         self.SetBackgroundColour("White")
         self.quote = wx.StaticText(self, label= "", pos = (60,60))
         vbox = wx.BoxSizer(wx.VERTICAL)
-        if "Linux" in platform.platform():# == "posix":
+        if platform.system() == "Linux":
             filemenu= wx.Menu()   
             menuEdit = filemenu.Append(wx.ID_SAVE, "&Edit\tCtrl+E", "Edit file")
             menuOpen = filemenu.Append(wx.ID_OPEN, "&Open\tCtrl+O","Open a new file")
