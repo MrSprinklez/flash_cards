@@ -140,9 +140,6 @@ class DeckWindow(wx.Frame):
             self.Bind(wx.EVT_TOOL, self.Exit, id=4)
             self.Bind(wx.EVT_CLOSE, self.Exit)
 
-
-        #vbox.Add(toolbar, 0, border=0)
-        #self.SetSizer(vbox
         self.Centre()
 
 
@@ -186,24 +183,24 @@ class DeckWindow(wx.Frame):
         self.Show(False)
     def Open(self,event):
         """ Open a file"""
-       # try:
-        self.dirname = ''
-        dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.OPEN)
-        if dlg.ShowModal() == wx.ID_OK:
-            self.filename = dlg.GetFilename()
-            self.dirname = dlg.GetDirectory()
-            f = open(os.path.join(self.dirname, self.filename), 'r')
-            get_data(self.filename,self.filename)
-            self.new_deck = get_cards(self.filename)
-            f.close()
-            self.x = 0
-            (self.q,self.a) = data_to_display(self.new_deck,self.x)
-            self.control.SetValue("Question:\n" +str(self.q))
-        dlg.Destroy()
-        #except:
-         #   dlg = wx.MessageDialog( self, "Error: Selected file is not a valid format", "Error", wx.OK | wx.ICON_WARNING)
-          #  dlg.ShowModal()
-           # dlg.Destroy()
+        try:
+            self.dirname = ''
+            dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.OPEN)
+            if dlg.ShowModal() == wx.ID_OK:
+                self.filename = dlg.GetFilename()
+                self.dirname = dlg.GetDirectory()
+                f = open(os.path.join(self.dirname, self.filename), 'r')
+                get_data(self.filename,self.filename)
+                self.new_deck = get_cards(self.filename)
+                f.close()
+                self.x = 0
+                (self.q,self.a) = data_to_display(self.new_deck,self.x)
+                self.control.SetValue("Question:\n" +str(self.q))
+            dlg.Destroy()
+        except:
+            dlg = wx.MessageDialog( self, "Error: Selected file is not a valid format", "Error", wx.OK | wx.ICON_WARNING)
+            dlg.ShowModal()
+            dlg.Destroy()
             
     def color(self,event):
         dlg = wx.ColourDialog(None)
@@ -252,8 +249,14 @@ class DeckWindow(wx.Frame):
                     self.control.SetValue(temp)
                 else:
                     self.control.SetValue("Answer:\n" +str(self.a))
+                self.button.SetLabel("Wrong")
+                self.button2.SetLabel("Right")
+                self.Refresh()
             else:
                 self.control.SetValue("Question:\n" +str(self.q))
+                self.button.SetLabel("Previous")
+                self.button2.SetLabel("Next")
+                self.Refresh()
         except:
             dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
             dlg.ShowModal()
