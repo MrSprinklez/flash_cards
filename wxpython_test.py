@@ -3,6 +3,9 @@ import wx
 import platform
 from get_text import *
 
+def correct(obj,lst):
+    lst.append(obj)
+
 
 def resource_path(relative):
     if hasattr(sys, "_MEIPASS"):
