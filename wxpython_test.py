@@ -146,13 +146,36 @@ class DeckWindow(wx.Frame):
         # A button
         self.button =wx.Button(self, label="Previous", pos=(10, 80), size = (50,50))
         self.Bind(wx.EVT_BUTTON, self.Previous,self.button)
-        self.button =wx.Button(self, label="Next", pos=(420, 80), size = (50,50))
-        self.Bind(wx.EVT_BUTTON, self.Next,self.button)
-        self.button =wx.Button(self, label="Flip", pos=(220, 180), size = (50,50))
-        self.Bind(wx.EVT_BUTTON, self.Flip,self.button)
+        self.button2 =wx.Button(self, label="Next", pos=(420, 80), size = (50,50))
+        self.Bind(wx.EVT_BUTTON, self.Next,self.button2)
+        self.button3 =wx.Button(self, label="Flip", pos=(220, 180), size = (50,50))
+        self.Bind(wx.EVT_BUTTON, self.Flip,self.button3)
+
+        topSizer        = wx.BoxSizer(wx.VERTICAL)
+        gridSizer       = wx.GridSizer(rows=4, cols=2, hgap=5, vgap=5)
+        titleSizer      = wx.BoxSizer(wx.HORIZONTAL)
+        btnSizer        = wx.BoxSizer(wx.HORIZONTAL)
+        btnSizer2       = wx.BoxSizer(wx.HORIZONTAL)
+        btnSizer3       = wx.BoxSizer(wx.HORIZONTAL)
+
+        btnSizer.Add(self.button, 0, wx.ALL, 0)
+        btnSizer3.Add(self.button3, 0, wx.ALL, 0)
+        btnSizer2.Add(self.button2, 0, wx.ALL, 0)
         
         self.Show(False)
         self.dirname = ''
+
+        topSizer.Add(titleSizer, 0, wx.CENTER)
+        topSizer.Add(self.control, 0, wx.ALL|wx.EXPAND, 50)
+        gridSizer.Add(btnSizer, 0, wx.ALL|wx.CENTER, 0)
+        gridSizer.Add(btnSizer2, 0, wx.ALL|wx.CENTER, 0)
+        gridSizer.Add(btnSizer3, 0, wx.ALL|wx.CENTER, 0)
+        topSizer.Add(gridSizer, 0, wx.ALL|wx.CENTER, 5)
+
+
+
+        self.SetSizer(topSizer)
+        topSizer.Fit(self)
         
     def Edit(self,event):
         """Open Editing window"""
@@ -187,7 +210,7 @@ class DeckWindow(wx.Frame):
             dlg.Destroy()
             self.SetBackgroundColour(Colour)
             self.control.SetBackgroundColour(Colour)
-            if os.name != 'posix':
+            if platform.system() == "Linux":
                 self.toolbar.SetBackgroundColour(Colour)
             self.Refresh()
         
