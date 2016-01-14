@@ -3,10 +3,6 @@ import wx
 import platform
 from get_text import *
 
-def correct(obj,lst):
-    lst.append(obj)
-
-
 def resource_path(relative):
     if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, relative)
@@ -108,6 +104,8 @@ class DeckWindow(wx.Frame):
         self.SetBackgroundColour("White")
         self.quote = wx.StaticText(self, label= "", pos = (60,60))
         vbox = wx.BoxSizer(wx.VERTICAL)
+        self.Wrong = []
+        self.Right = []
         if platform.system() == "Linux":
             filemenu= wx.Menu()   
             menuEdit = filemenu.Append(wx.ID_SAVE, "&Edit\tCtrl+E", "Edit file")
@@ -217,10 +215,19 @@ class DeckWindow(wx.Frame):
     def Previous(self,event):
         #previous
         try:
+            if self.control.GetValue() == ("Answer:\n" +self.a):
+                self.Wrong.append((self.q, self.a))
+                print self.Wrong
+
             if self.x > 0:
                 self.x -= 1
             (self.q,self.a) = data_to_display(self.new_deck,self.x)
             self.control.SetValue("Question:\n" +str(self.q))
+
+            self.button.SetLabel("Previous")
+            self.button2.SetLabel("Next")
+            self.Refresh()
+
         except:
             dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
             dlg.ShowModal()
@@ -229,10 +236,19 @@ class DeckWindow(wx.Frame):
     def Next(self,event):
         #Next
         try:
+            if self.control.GetValue() == ("Answer:\n" +self.a):
+                self.Right.append((self.q, self.a))
+                print self.Right
+                
             if self.x < len(self.new_deck)-1:
                 self.x += 1
             (self.q,self.a) = data_to_display(self.new_deck,self.x)
             self.control.SetValue("Question:\n" +str(self.q))
+            
+            self.button.SetLabel("Previous")
+            self.button2.SetLabel("Next")
+            self.Refresh()
+
         except:
             dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
             dlg.ShowModal()
@@ -261,7 +277,7 @@ class DeckWindow(wx.Frame):
             dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
             dlg.ShowModal()
             dlg.Destroy()
-            
+
     def Exit(self,event):
         """Exit"""
         self.Destroy()
