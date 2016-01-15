@@ -18,6 +18,8 @@ class FlashCard():
         #self.colour = colour
         self.image = image 
 
+
+
 def get_file_type(fl):
     if fl.endswith(".txt"):# or fl.endswith(".rtf"):
         #num_lines = sum(1 for line in open(fl))#if line.rstrip('\n')
