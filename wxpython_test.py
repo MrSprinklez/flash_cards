@@ -153,21 +153,20 @@ class DeckWindow(wx.Frame):
         gridSizer       = wx.GridSizer(rows=4, cols=2, hgap=5, vgap=5)
         titleSizer      = wx.BoxSizer(wx.HORIZONTAL)
         btnSizer        = wx.BoxSizer(wx.HORIZONTAL)
-        btnSizer2       = wx.BoxSizer(wx.HORIZONTAL)
-        btnSizer3       = wx.BoxSizer(wx.HORIZONTAL)
+
 
         btnSizer.Add(self.button, 0, wx.ALL, 0)
-        btnSizer3.Add(self.button3, 0, wx.ALL, 0)
-        btnSizer2.Add(self.button2, 0, wx.ALL, 0)
-        
+        btnSizer.Add(self.button3, 0, wx.ALL, 0)
+        btnSizer.Add(self.button2, 0, wx.ALL, 0)
+
+        self.SetMinSize((300,320))
         self.Show(False)
         self.dirname = ''
 
         topSizer.Add(titleSizer, 0, wx.CENTER)
         topSizer.Add(self.control, 0, wx.ALL|wx.EXPAND, 50)
+        topSizer.Add(self.quote, 0, wx.ALL|wx.EXPAND, 5)
         gridSizer.Add(btnSizer, 0, wx.ALL|wx.CENTER, 0)
-        gridSizer.Add(btnSizer2, 0, wx.ALL|wx.CENTER, 0)
-        gridSizer.Add(btnSizer3, 0, wx.ALL|wx.CENTER, 0)
         topSizer.Add(gridSizer, 0, wx.ALL|wx.CENTER, 5)
 
 
@@ -214,69 +213,73 @@ class DeckWindow(wx.Frame):
         
     def Previous(self,event):
         #previous
-        try:
-            if self.control.GetValue() == ("Answer:\n" +self.a):
-                self.Wrong.append((self.q, self.a))
-                print self.Wrong
+        #try:
+        if "Answer:\n" in self.control.GetValue():
+            self.Wrong.append((self.q, self.a))
+            print self.Wrong
 
-            if self.x > 0:
-                self.x -= 1
-            (self.q,self.a) = data_to_display(self.new_deck,self.x)
-            self.control.SetValue("Question:\n" +str(self.q))
+        if self.x > 0:
+            self.x -= 1
+        (self.q,self.a) = data_to_display(self.new_deck,self.x)
+        self.control.SetValue("Question:\n" +str(self.q))
 
-            self.button.SetLabel("Previous")
-            self.button2.SetLabel("Next")
-            self.Refresh()
+        self.button.SetLabel("Previous")
+        self.button2.SetLabel("Next")
+        self.quote.SetLabel("")
+        self.Refresh()
 
-        except:
-            dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
-            dlg.ShowModal()
-            dlg.Destroy()
+        #except:
+        #    dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
+        #    dlg.ShowModal()
+        #    dlg.Destroy()
             
     def Next(self,event):
         #Next
-        try:
-            if self.control.GetValue() == ("Answer:\n" +self.a):
-                self.Right.append((self.q, self.a))
-                print self.Right
-                
-            if self.x < len(self.new_deck)-1:
-                self.x += 1
-            (self.q,self.a) = data_to_display(self.new_deck,self.x)
-            self.control.SetValue("Question:\n" +str(self.q))
+        #try:
+        if "Answer:\n" in self.control.GetValue():
+            self.Right.append((self.q, self.a))
+            print self.Right
             
-            self.button.SetLabel("Previous")
-            self.button2.SetLabel("Next")
-            self.Refresh()
+        if self.x < len(self.new_deck)-1:
+            self.x += 1
+        (self.q,self.a) = data_to_display(self.new_deck,self.x)
+        self.control.SetValue("Question:\n" +str(self.q))
+        
+        self.button.SetLabel("Previous")
+        self.button2.SetLabel("Next")
+        self.quote.SetLabel("")
+        self.Refresh()
 
-        except:
-            dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
-            dlg.ShowModal()
-            dlg.Destroy()
+        #except:
+        #    dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
+        #    dlg.ShowModal()
+        #    dlg.Destroy()
             
     def Flip(self,event):
         #Flip
-        try:
-            if self.control.GetValue() == ("Question:\n" +self.q):
-                if type(self.a) == list:
-                    temp = "Answer:\n"
-                    for i in range(len(self.a)):
-                        temp += self.a[i]+"\n"
-                    self.control.SetValue(temp)
-                else:
-                    self.control.SetValue("Answer:\n" +str(self.a))
-                self.button.SetLabel("Wrong")
-                self.button2.SetLabel("Right")
-                self.Refresh()
+        #try:
+        if self.control.GetValue() == ("Question:\n" +self.q):
+            if type(self.a) == list:
+                temp = "Answer:\n"
+                for i in range(len(self.a)):
+                    temp += self.a[i]+"\n"
+                self.control.SetValue(temp)
             else:
-                self.control.SetValue("Question:\n" +str(self.q))
-                self.button.SetLabel("Previous")
-                self.button2.SetLabel("Next")
-                self.Refresh()
-        except:
-            dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
-            dlg.ShowModal()
-            dlg.Destroy()
+                self.control.SetValue("Answer:\n" +str(self.a))
+            self.button.SetLabel("Wrong")
+            self.button2.SetLabel("Right")
+            self.quote.SetLabel("Did you get the question right?")
+            self.Refresh()
+        else:
+            self.control.SetValue("Question:\n" +str(self.q))
+            self.button.SetLabel("Previous")
+            self.button2.SetLabel("Next")
+            self.quote.SetLabel("")
+            self.Refresh()
+        #except:
+        #    dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
+        #    dlg.ShowModal()
+        #    dlg.Destroy()
 
     def Exit(self,event):
         """Exit"""
