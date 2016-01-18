@@ -158,8 +158,7 @@ class DeckWindow(wx.Frame):
         btnSizer.Add(self.button, 0, wx.ALL, 0)
         btnSizer.Add(self.button3, 0, wx.ALL, 0)
         btnSizer.Add(self.button2, 0, wx.ALL, 0)
-
-        self.SetMinSize((300,320))
+        self.SetMinSize((500,300))
         self.Show(False)
         self.dirname = ''
 
