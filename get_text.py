@@ -1,13 +1,9 @@
 #http://stackoverflow.com/questions/7559397/python-read-file-from-and-to-specific-lines-of-text
 
-#import re
-#import csv 
+
 import pickle
 from document_import import * 
 import re
-#import json
-
-#flash_cards = [] 
 
 #SHOULD WORK WITH DOC AND TXT
 
@@ -18,11 +14,8 @@ class FlashCard(): #Defines what attributes flash cards have
         #self.colour = colour
         self.image = image #Image on card 
 
-
-
 def get_file_type(fl): #Determines file type 
     if fl.endswith(".txt"): #If .txt
-        #num_lines = sum(1 for line in open(fl))#if line.rstrip('\n')
         if isinstance(fl, unicode): #check if string is unicode
             fl = fl.encode('utf-8') #Changes to utf 
         filename = open(fl) #open file
@@ -32,9 +25,7 @@ def get_file_type(fl): #Determines file type
         text = filter(None, text)   # filter the empty strings out of the list
         return(text, len(text))     # return the final list and it's length
         
-    elif fl.endswith(".docx"): #if Docx
-        #num_lines = sum(1 for line in get_docx_text(fl)) #make new function for it
-        #print(get_docx_text(fl))
+    elif fl.endswith(".docx"): #if file is Docx
         return(get_docx_text(fl),len(get_docx_text(fl))) #returns list and len
 
 def get_data(fl,stack_name): #Organize data into Question and answer and turn into .obj
@@ -54,71 +45,44 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
         count+=1 
 
         if is_list == True: #If the definition is a list, then use this if statement 
-            if "-" in line:
+            if "-" in line:#if there is a - 
                 a.append(line[0:].rstrip("\n"))#Append 1 answer to answer list
                 if count==num_lines: #if line number has been reached
                     flash_cards.append(FlashCard(q,a,"grey","none")) #APPEND to list of classes with class of that flash card
-                    #writer.writerow({'Question':q, "Answer": a})
+                  
                     q = "" #Clear list
                     a = [] #Clear list 
-                    #is_list = False
+        
                     is_list = False #bool 
-                    #break #Consider deleting **
-                #break #consider deleting **
+
             
-            else:
-                #writer.writerow({'Question':q, "Answer": a})
-                #print("Else:", l)
-                flash_cards.append(FlashCard(q,a,"grey","none"))
-                q = ""
-                a = []
-                is_list = False 
-                #break
-            
-        #if l == ":":
-        if ":" in line: 
-            q = line[0:line.index(":")]
-            ##Consider changing this and using in range in for loop instead
-            #**print(line)
-            #print("end",line[len(line)-1])
+            else: #If flash card is not a list, only one answer
+           
+                flash_cards.append(FlashCard(q,a,"grey","none")) #append question and answer
+                q = "" #clear question var
+                a = [] #Clear answer var 
+                is_list = False #reset is_list bool 
+                
+        if ":" in line: #if colon in line (is definition)
+            q = line[0:line.index(":")] #Line equals question 
             if line.rstrip("\n")[len(line.rstrip("\n"))-1]==line[line.index(":")]: #stip /n from file 
-                ###IT NEEDS TO BE A TEXT FILE FOR THIS TO WORK! CHANGE TO GE RID OF SPACES AND CHECK END OF LIST
-                #line[len(line)-2]==line[line.index(":")                  
-                #print("its a list")
-                #q = line[0:line.index(":")]
+            
                 a = [] #Refresh a list 
                 is_list=True #is list 
-                #a = line[line.index(":")+1:]
-                #flash_cards.append(FlashCard(q,a,"grey","none"))
-                #break
-                #count+=1##Consider changing this and using in range in for loop instead
-                #break
+         
             else: 
-                #print("Not A List") 
-                #q = line[0:line.index(":")]
+             
                 a = line[line.index(":")+1:len(line)].rstrip("\n") #strip \n 
-                #got rid of -1
-                #print("A", a)
-                #print("a:",a)
+          
                 flash_cards.append(FlashCard(q,a,"grey","none")) #Append Question and answer to flash card 
-                #writer.writerow({'Question':line[0:line.index(":")], "Answer": line[line.index(":")+1:]})
-                #break
-    #if fl.endswith(".txt"):
-        #data_file.close() 
+   
     with open(stack_name+".obj", "wb") as fp: #Open .obj or create new one if doesn't exist 
         pickle.dump(flash_cards, fp) #dump contents into .obj
 
-
-
-def get_cards(fl):
+def get_cards(fl): #Function returns flash card lists from object 
     with open(fl+'.obj', 'rb') as fp:   
         deck = pickle.load(fp)
         return(deck) 
-        #for x in range(len(deck)):
-         #   print(deck[x].question,deck[x].answer)
 
-
-def data_to_display(deck,num):
-    return(deck[num].question,deck[num].answer)
-
-
+def data_to_display(deck,num): #Takes data from lists 
+    return(deck[num].question,deck[num].answer) 
