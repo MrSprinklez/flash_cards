@@ -41,59 +41,28 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
     count = 0 
     flash_cards = []  #List which flash card objects are contained 
     is_list = False #If its a list of answers then this bool becomes true 
-    #data_file = open(file)
-    #sep =  "#"
-#    if fl.endswith(".txt"):
-#        num_lines = sum(1 for line in open(fl))#if line.rstrip('\n')
-#        data_file = open(fl)
-#    elif fl.endswith(".docx"):
-#        num_lines = sum(1 for line in get_docx_text(fl)) #make new function for it
-#        data_file = get_docx_text(fl)
-    #with open(fl) as data_file:#Get User Data for Flash Cards
+
     (data_file,num_lines) = get_file_type(fl)#Use Function That gets Number of lines and File Type
 
     q = "" #Create Variables for Question
     a = [] #Create Variable for Answer
-    #print(re.sub('u\n','\n', data_file))
-   
-        #num_lines =  8#sum(1 for line in data_file)#if line.rstrip('\n')
-        
-        #with open('data.csv', 'w') as fp:#Open JSON file to dump Flash Card Info
-            #fieldnames = ['Question', 'Answer']
-            #writer = csv.DictWriter(fp, fieldnames=fieldnames)
-            #writer.writeheader() #Write Header 
-            
+
     for line in data_file:   #For every line in the file, look through it
-        #print("original:",line)
         if "\n" in line: #FInds new line symbol 
             line.replace("\n","") #Gets rid of new line symbol 
             
-        #print("Removed:",line)
-        #re.sub('u\n','\n', line)
         count+=1 
-        #print(line)
-        #if line.endswith(" "):
-            #print("endswithyo")
-            #line.rstrip("")
-        #for l in line: #Every character in lin e
-            #*******#l = l.replace('  ', ' ') #Change large spaces to single spaces 
-            #l = l.replace('  ', ' ')  
+
         if is_list == True: #If the definition is a list, then use this if statement 
-            #print("line",line)                
-            #if l == "-":
             if "-" in line:
-                #print(line)
-                #print(line[0:])
-                a.append(line[0:].rstrip("\n"))
-                print(a)
-                if count==num_lines:
-                    print("FLASH CARD DONE") 
+                a.append(line[0:].rstrip("\n"))#Append 1 answer to answer list
+                if count==num_lines: #if line number has been reached
                     flash_cards.append(FlashCard(q,a,"grey","none")) #APPEND to list of classes with class of that flash card
                     #writer.writerow({'Question':q, "Answer": a})
-                    q = ""
-                    a = []
+                    q = "" #Clear list
+                    a = [] #Clear list 
                     #is_list = False
-                    is_list = False
+                    is_list = False #bool 
                     #break #Consider deleting **
                 #break #consider deleting **
             
@@ -109,7 +78,6 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
         #if l == ":":
         if ":" in line: 
             q = line[0:line.index(":")]
-            print(q) 
             ##Consider changing this and using in range in for loop instead
             #**print(line)
             #print("end",line[len(line)-1])
@@ -138,56 +106,9 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
     #if fl.endswith(".txt"):
         #data_file.close() 
     with open(stack_name+".obj", "wb") as fp: #Open .obj or create new one if doesn't exist 
-        pickle.dump(flash_cards, fp)
+        pickle.dump(flash_cards, fp) #dump contents into .obj
 
 
-
-#def pull_data(file,stack_name):
-#    flash_cards = []     
-#    lstbool = False 
-#    spamReader = csv.reader(open(file), delimiter=' ', quotechar='|')
-#    for row in spamReader:
-#    
-#        for x in range(len(row)):
-#            try:
-#                #print(row)
-#                if row[x].count(":") == 1:
-#                    #print(row)
-#                    q = (", ".join(row[0:x+1])).replace(",", "")
-#                    
-#                    a = (", ".join(row[x+1:len(row)-1])).replace(",", "")
-#                    
-#                    if a != []:
-#                        flash_cards.append(FlashCard(q,a,"grey","none"))
-#                    
-#                    #y=y.replace(",", "")
-#                    print(q)
-#                    print(a)
-#                
-#                if row[x].count("-")==1: # and lstbool == False:
-#                    #print("Row X",row[x])
-#                    #print("List Stuff: ",row[0:len(row)-1])
-#                    if len(row) > 1:
-#                        a = (", ".join(row[0:len(row)-1])).replace(",", "")
-#                        print(a)
-#                    else:
-#                        a = row[x]
-#                        print(a)
-#                    lstbool = True 
-#                #elif row[x].count("-")==1 and lstbool == True:
-#                        
-#                        
-#                else:
-#                    #print(row) 
-#                    pass      
-#            except:
-#                pass 
-#            
-#    with open(stack_name+".obj", "wb") as fp:
-#        pickle.dump(flash_cards, fp)
-#         
-
-    #http://stackoverflow.com/questions/2409330/how-to-get-data-from-csv-file-in-python
 
 def get_cards(fl):
     with open(fl+'.obj', 'rb') as fp:   
