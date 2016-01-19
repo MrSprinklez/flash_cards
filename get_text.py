@@ -29,7 +29,7 @@ def get_file_type(fl): #Determines file type
         return(get_docx_text(fl),len(get_docx_text(fl))) #returns list and len
 
 def get_data(fl,stack_name): #Organize data into Question and answer and turn into .obj
-    count = 0 
+    count = 0 #Make count 0 
     flash_cards = []  #List which flash card objects are contained 
     is_list = False #If its a list of answers then this bool becomes true 
 
