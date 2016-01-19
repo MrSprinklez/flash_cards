@@ -1,12 +1,16 @@
 import os
 import wx
 import platform
+#import sys
 from get_text import *
 
-def resource_path(relative):
-    if hasattr(sys, "_MEIPASS"):
-        return os.path.join(sys._MEIPASS, relative)
-    return os.path.join(relative)
+#def resource_path(relative):
+#    if hasattr(sys, "_MEIPASS"):
+#        return os.path.join(sys._MEIPASS, relative)
+#    return os.path.join(relative)
+    
+def resource_path(fname):
+    return os.path.join(os.path.dirname(__file__), fname)
 
 edit_page = resource_path('edit_page.png')
 colour_picker = resource_path('color_picker.png')
