@@ -210,12 +210,12 @@ class DeckWindow(wx.Frame):
             #gets filename and directory
             self.filename = dlg.GetFilename()
             self.dirname = dlg.GetDirectory()
-            f = open(os.path.join(self.dirname, self.filename), 'r')
+            File = os.path.join(self.dirname, self.filename)
+            print File
             if ".obj" not in self.filename:
                 #skips step if already a .obj
-                get_data(self.filename,self.filename)
-            self.new_deck = get_cards(self.filename)
-            f.close()
+                get_data(File,self.filename)
+            self.new_deck = get_cards(File)
             #sets current flashcard number
             self.x = 0
             #sets values to question and answer
