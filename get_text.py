@@ -26,6 +26,8 @@ def get_file_type(fl): #Determines file type
         return(text, len(text))     # return the final list and it's length
         
     elif fl.endswith(".docx"): #if file is Docx
+        if isinstance(fl, unicode): #check if string is unicode
+            fl = fl.encode('utf-8') #Changes to utf 
         return(get_docx_text(fl),len(get_docx_text(fl))) #returns list and len
 
 def get_data(fl,stack_name): #Organize data into Question and answer and turn into .obj
