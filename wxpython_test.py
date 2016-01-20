@@ -220,8 +220,9 @@ class DeckWindow(wx.Frame):
         if "Answer:\n" in self.control.GetValue():
             self.Wrong.append((self.q, self.a))
             print self.Wrong
+            self.x += 1
 
-        if self.x > 0:
+        elif self.x > 0:
             self.x -= 1
         (self.q,self.a) = data_to_display(self.new_deck,self.x)
         self.control.SetValue("Question:\n" +str(self.q))
