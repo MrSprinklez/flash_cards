@@ -190,7 +190,8 @@ class DeckWindow(wx.Frame):
             self.filename = dlg.GetFilename()
             self.dirname = dlg.GetDirectory()
             f = open(os.path.join(self.dirname, self.filename), 'r')
-            #get_data(self.filename,self.filename)
+            if ".obj" not in self.filename:
+                get_data(self.filename,self.filename)
             self.new_deck = get_cards(self.filename)
             f.close()
             self.x = 0

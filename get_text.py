@@ -79,10 +79,16 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
     with open(stack_name+".obj", "wb") as fp: #Open .obj or create new one if doesn't exist 
         pickle.dump(flash_cards, fp) #dump contents into .obj
 
-def get_cards(fl): #Function returns flash card lists from object 
-    with open(fl, 'rb') as fp:   
-        deck = pickle.load(fp)
-        return(deck) 
+def get_cards(fl): #Function returns flash card lists from object
+    if '.obj' not in fl:
+        with open(fl+'.obj', 'rb') as fp:   
+            deck = pickle.load(fp)
+            return(deck)
+    else:
+        with open(fl, 'rb') as fp:   
+            deck = pickle.load(fp)
+            return(deck)
+        
 
 def data_to_display(deck,num): #Takes data from lists 
     return(deck[num].question,deck[num].answer) 
