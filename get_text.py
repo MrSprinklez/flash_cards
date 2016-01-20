@@ -4,6 +4,7 @@
 import pickle
 from document_import import * 
 import re
+import os 
 
 #SHOULD WORK WITH DOC AND TXT
 
@@ -16,8 +17,8 @@ class FlashCard(): #Defines what attributes flash cards have
 
 def get_file_type(fl): #Determines file type 
     if fl.endswith(".txt"): #If .txt
-        if isinstance(fl, unicode): #check if string is unicode
-            fl = fl.encode('utf-8') #Changes to utf 
+        #if isinstance(fl, unicode): #check if string is unicode
+            #fl = fl.encode('utf-8') #Changes to utf 
         filename = open(fl) #open file
         text = filename.readlines()     # creates a list using the text from the file
         for i in range(len(text)):      # for every new line in the list
@@ -77,9 +78,16 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
                 a = line[line.index(":")+1:len(line)].rstrip("\n") #strip \n 
           
                 flash_cards.append(FlashCard(q,a,"grey","none")) #Append Question and answer to flash card 
-   
-    with open(stack_name+".obj", "wb") as fp: #Open .obj or create new one if doesn't exist 
+    full_path = os.path.realpath(fl)
+    (path,filename) = os.path.split(full_path)
+    with open(path+"/"+stack_name+".obj", "wb") as fp: #Open .obj or create new one if doesn't exist 
         pickle.dump(flash_cards, fp) #dump contents into .obj
+    
+    #return (os.getcwd()+"/"+stack_name+".obj")
+    #path, filename = 
+    #full_path = os.path.realpath(fl)
+    #return os.path.split(full_path)
+    return (path+"/"+stack_name+".obj") #(os.path.realpath(fl)+stack_name+".obj")
 
 def get_cards(fl): #Function returns flash card lists from object
     if '.obj' not in fl:
