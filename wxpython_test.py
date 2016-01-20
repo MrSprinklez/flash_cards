@@ -12,15 +12,15 @@ from get_text import *
 def resource_path(fname):
     return os.path.join(os.path.dirname(__file__), fname)
 
-edit_page = resource_path('edit_page.png')
-colour_picker = resource_path('color_picker.png')
-open_file = resource_path('open_file.png')
-door_exit = resource_path('door_exit.png')
+#edit_page = resource_path('edit_page.png')
+#colour_picker = resource_path('color_picker.png')
+#open_file = resource_path('open_file.png')
+#door_exit = resource_path('door_exit.png')
 
-#edit_page = 'edit_page.png'
-#colour_picker = 'color_picker.png'
-#open_file = 'open_file.png'
-#door_exit = 'door_exit.png'
+edit_page = 'edit_page.png'
+colour_picker = 'color_picker.png'
+open_file = 'open_file.png'
+door_exit = 'door_exit.png'
 
 class MainWindow(wx.Frame):
     def __init__(self, parent, title):

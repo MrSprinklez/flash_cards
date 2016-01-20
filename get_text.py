@@ -80,7 +80,7 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
         pickle.dump(flash_cards, fp) #dump contents into .obj
 
 def get_cards(fl): #Function returns flash card lists from object 
-    with open(fl+'.obj', 'rb') as fp:   
+    with open(fl, 'rb') as fp:   
         deck = pickle.load(fp)
         return(deck) 
 
