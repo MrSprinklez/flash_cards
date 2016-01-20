@@ -179,24 +179,24 @@ class DeckWindow(wx.Frame):
         self.Show(False)
     def Open(self,event):
         """ Open a file"""
-        try:
-            self.dirname = ''
-            dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.OPEN)
-            if dlg.ShowModal() == wx.ID_OK:
-                self.filename = dlg.GetFilename()
-                self.dirname = dlg.GetDirectory()
-                f = open(os.path.join(self.dirname, self.filename), 'r')
-                get_data(self.filename,self.filename)
-                self.new_deck = get_cards(self.filename)
-                f.close()
-                self.x = 0
-                (self.q,self.a) = data_to_display(self.new_deck,self.x)
-                self.control.SetValue("Question:\n" +str(self.q))
-            dlg.Destroy()
-        except:
-            dlg = wx.MessageDialog( self, "Error: Selected file is not a valid format", "Error", wx.OK | wx.ICON_WARNING)
-            dlg.ShowModal()
-            dlg.Destroy()
+        #try:
+        self.dirname = ''
+        dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.OPEN)
+        if dlg.ShowModal() == wx.ID_OK:
+            self.filename = dlg.GetFilename()
+            self.dirname = dlg.GetDirectory()
+            f = open(os.path.join(self.dirname, self.filename), 'r')
+            #get_data(self.filename,self.filename)
+            self.new_deck = get_cards(self.filename)
+            f.close()
+            self.x = 0
+            (self.q,self.a) = data_to_display(self.new_deck,self.x)
+            self.control.SetValue("Question:\n" +str(self.q))
+        dlg.Destroy()
+        #except:
+        #    dlg = wx.MessageDialog( self, "Error: Selected file is not a valid format", "Error", wx.OK | wx.ICON_WARNING)
+        #    dlg.ShowModal()
+        #    dlg.Destroy()
             
     def color(self,event):
         dlg = wx.ColourDialog(None)
