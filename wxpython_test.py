@@ -110,7 +110,7 @@ class DeckWindow(wx.Frame):
         vbox = wx.BoxSizer(wx.VERTICAL)
         self.Wrong = []
         self.Right = []
-        if platform.system() == "Linux":
+        if platform.system() == "Linux":# or platform.system() == "Darwin":
             filemenu= wx.Menu()   
             menuEdit = filemenu.Append(wx.ID_SAVE, "&Edit\tCtrl+E", "Edit file")
             menuOpen = filemenu.Append(wx.ID_OPEN, "&Open\tCtrl+O","Open a new file")
@@ -210,7 +210,7 @@ class DeckWindow(wx.Frame):
             dlg.Destroy()
             self.SetBackgroundColour(Colour)
             self.control.SetBackgroundColour(Colour)
-            if platform.system() == "Linux":
+            if platform.system() == "Linux":# or platform.system() == "Darwin":
                 self.toolbar.SetBackgroundColour(Colour)
             self.Refresh()
         
