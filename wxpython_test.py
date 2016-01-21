@@ -250,9 +250,11 @@ class DeckWindow(wx.Frame):
         #try:
         if "Answer:\n" in self.control.GetValue():
             #appends to wrong list when the answer is displayed
-            self.Wrong.append((self.q, self.a))
-            print self.Wrong
-            self.x += 1
+            if (self.q, self.a) not in self.Wrong and (self.q, self.a) not in self.Right:
+                self.Wrong.append((self.q, self.a))
+                print self.Wrong
+            if self.x < len(self.new_deck)-1:
+                self.x += 1
 
         elif self.x > 0:
             #goes to previous flash card when question is displayed
@@ -276,8 +278,9 @@ class DeckWindow(wx.Frame):
         #try:
         if "Answer:\n" in self.control.GetValue():
             #appends to right list when the answer is displayed
-            self.Right.append((self.q, self.a))
-            print self.Right
+            if (self.q, self.a) not in self.Wrong and (self.q, self.a) not in self.Right:
+                self.Right.append((self.q, self.a))
+                print self.Right
             
         if self.x < len(self.new_deck)-1:
             #goes to next flash card when question is displayed
@@ -332,8 +335,23 @@ class DeckWindow(wx.Frame):
 
     def Exit(self,event):
         """Exit"""
-        self.Destroy()
-        frame.Destroy()
+        if self.control.IsEmpty() == False:
+            dlg = wx.MessageDialog( self, "Would you like to save the questions you got wrong?", "Save?", wx.YES | wx.NO | wx.CANCEL)
+            result = dlg.ShowModal()
+            if result == wx.ID_YES:
+                dump_to_obj(self.dirname, self.filename, self.Wrong)
+                self.Destroy()
+                frame.Destroy()
+                dlg.Destroy()
+            elif result == wx.ID_NO:
+                self.Destroy()
+                frame.Destroy()
+                dlg.Destroy()
+            else:
+                dlg.Destroy()
+        else:
+            self.Destroy()
+            frame.Destroy()
 
 #creates windows and displays them
 app = wx.App(False)

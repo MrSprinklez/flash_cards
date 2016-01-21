@@ -103,6 +103,9 @@ def get_cards(fl): #Function returns flash card lists from object
             deck = pickle.load(fp) #get data from .obj
             return(deck)#return deck from .obj
         
+def dump_to_obj(path, stack_name, ls):
+    with open(path+"/"+stack_name+"wrong.obj", "wb") as fp: #Open .obj or create new one if doesn't exist 
+        pickle.dump(ls, fp) #dump contents into .obj
 
 def data_to_display(deck,num): #Takes data from lists 
     return(deck[num].question,deck[num].answer) #returns question and answer from flash card object 
