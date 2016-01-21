@@ -9,6 +9,7 @@ def resource_path(relative):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)
 
+<<<<<<< HEAD
 #edit_page = resource_path('edit_page.png')
 #colour_picker = resource_path('color_picker.png')
 #open_file = resource_path('open_file.png')
@@ -18,6 +19,20 @@ edit_page = 'edit_page.png'
 colour_picker = 'color_picker.png'
 open_file = 'open_file.png'
 door_exit = 'door_exit.png'
+=======
+
+# Pictures for compiling
+edit_page = resource_path('edit_page.png')
+colour_picker = resource_path('color_picker.png')
+open_file = resource_path('open_file.png')
+door_exit = resource_path('door_exit.png')
+
+# Pictures for testing
+#edit_page = 'edit_page.png'
+#colour_picker = 'color_picker.png'
+#open_file = 'open_file.png'
+#door_exit = 'door_exit.png'
+>>>>>>> f1f239bac670b19787eb650c2599736ac9167c6c
 
 class MainWindow(wx.Frame):
     def __init__(self, parent, title):
@@ -182,7 +197,8 @@ class DeckWindow(wx.Frame):
 
         
         #adds all sizers to main sizer
-        topSizer.Add(self.toolbar, 0, wx.ALL|wx.EXPAND, 0)
+        if platform.system() != 'Linux':
+            topSizer.Add(self.toolbar, 0, wx.ALL|wx.EXPAND, 0)
         topSizer.Add(titleSizer, 0, wx.CENTER)
         topSizer.Add(self.control, 0, wx.ALL|wx.EXPAND, 30)
         topSizer.Add(self.quote, 0, wx.ALL|wx.EXPAND, 5)
@@ -253,7 +269,7 @@ class DeckWindow(wx.Frame):
                 if (self.q, self.a) in self.Right:
                     self.Right.remove((self.q, self.a))
                 self.Wrong.append((self.q, self.a))
-                print self.Wrong
+                #print self.Wrong
             if self.x < len(self.new_deck)-1:
                 self.x += 1
 
@@ -283,7 +299,7 @@ class DeckWindow(wx.Frame):
                 if (self.q, self.a) in self.Wrong:
                     self.Wrong.remove((self.q, self.a))
                 self.Right.append((self.q, self.a))
-                print self.Right
+                #print self.Right
             
         if self.x < len(self.new_deck)-1:
             #goes to next flash card when question is displayed
