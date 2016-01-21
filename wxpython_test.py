@@ -250,7 +250,9 @@ class DeckWindow(wx.Frame):
         #try:
         if "Answer:\n" in self.control.GetValue():
             #appends to wrong list when the answer is displayed
-            if (self.q, self.a) not in self.Wrong and (self.q, self.a) not in self.Right:
+            if (self.q, self.a) not in self.Wrong:
+                if (self.q, self.a) in self.Right:
+                    self.Right.remove((self.q, self.a))
                 self.Wrong.append((self.q, self.a))
                 print self.Wrong
             if self.x < len(self.new_deck)-1:
@@ -278,7 +280,9 @@ class DeckWindow(wx.Frame):
         #try:
         if "Answer:\n" in self.control.GetValue():
             #appends to right list when the answer is displayed
-            if (self.q, self.a) not in self.Wrong and (self.q, self.a) not in self.Right:
+            if (self.q, self.a) not in self.Right:
+                if (self.q, self.a) in self.Wrong:
+                    self.Wrong.remove((self.q, self.a))
                 self.Right.append((self.q, self.a))
                 print self.Right
             
