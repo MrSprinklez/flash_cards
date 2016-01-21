@@ -250,8 +250,9 @@ class DeckWindow(wx.Frame):
         #try:
         if "Answer:\n" in self.control.GetValue():
             #appends to wrong list when the answer is displayed
-            self.Wrong.append((self.q, self.a))
-            print self.Wrong
+            if (self.q, self.a) not in self.Wrong and (self.q, self.a) not in self.Right:
+                self.Wrong.append((self.q, self.a))
+                print self.Wrong
             self.x += 1
 
         elif self.x > 0:
@@ -276,8 +277,9 @@ class DeckWindow(wx.Frame):
         #try:
         if "Answer:\n" in self.control.GetValue():
             #appends to right list when the answer is displayed
-            self.Right.append((self.q, self.a))
-            print self.Right
+            if (self.q, self.a) not in self.Wrong and (self.q, self.a) not in self.Right:
+                self.Right.append((self.q, self.a))
+                print self.Right
             
         if self.x < len(self.new_deck)-1:
             #goes to next flash card when question is displayed
