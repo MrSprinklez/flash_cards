@@ -66,40 +66,38 @@ S'-First'
 p27
 aS'-Second'
 p28
-aS'-Third '
-p29
 asg5
 g6
 sg7
 S'Another List Test'
-p30
+p29
 sba(iget_text
 FlashCard
-p31
-(dp32
+p30
+(dp31
 g3
 S' Amazing '
-p33
+p32
 sg5
 g6
 sg7
 S'Memes'
-p34
+p33
 sba(iget_text
 FlashCard
-p35
-(dp36
+p34
+(dp35
 g3
-(lp37
+(lp36
 S'-Hello World '
-p38
+p37
 aS'-Memes'
-p39
+p38
 aS'-Please Stop Asking Me Questions '
-p40
+p39
 asg5
 g6
 sg7
 S'Another Test listzzz'
-p41
+p40
 sba.
