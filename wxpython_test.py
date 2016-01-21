@@ -339,6 +339,7 @@ class DeckWindow(wx.Frame):
             dlg = wx.MessageDialog( self, "Would you like to save the questions you got wrong?", "Save?", wx.YES | wx.NO | wx.CANCEL)
             result = dlg.ShowModal()
             if result == wx.ID_YES:
+                dump_to_obj(self.dirname, self.filename, self.Wrong)
                 self.Destroy()
                 frame.Destroy()
                 dlg.Destroy()
