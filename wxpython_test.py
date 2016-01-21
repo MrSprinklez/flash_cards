@@ -334,18 +334,22 @@ class DeckWindow(wx.Frame):
 
     def Exit(self,event):
         """Exit"""
-        dlg = wx.MessageDialog( self, "Would you like to save the questions you got wrong?", "Save?", wx.YES | wx.NO | wx.CANCEL)
-        result = dlg.ShowModal()
-        if result == wx.ID_YES:
-            self.Destroy()
-            frame.Destroy()
-            dlg.Destroy()
-        elif result == wx.ID_NO:
-            self.Destroy()
-            frame.Destroy()
-            dlg.Destroy()
+        if self.control.IsEmpty() == False:
+            dlg = wx.MessageDialog( self, "Would you like to save the questions you got wrong?", "Save?", wx.YES | wx.NO | wx.CANCEL)
+            result = dlg.ShowModal()
+            if result == wx.ID_YES:
+                self.Destroy()
+                frame.Destroy()
+                dlg.Destroy()
+            elif result == wx.ID_NO:
+                self.Destroy()
+                frame.Destroy()
+                dlg.Destroy()
+            else:
+                dlg.Destroy()
         else:
-            dlg.Destroy()
+            self.Destroy()
+            frame.Destroy()
 
 #creates windows and displays them
 app = wx.App(False)
