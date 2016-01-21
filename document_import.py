@@ -5,12 +5,6 @@ except ImportError:
 import zipfile
 import pickle
 
-"""
-Module that extract text from MS XML Word document (.docx).
-(Inspired by python-docx <https://github.com/mikemaccana/python-docx>)
-"""
-
-
 def get_docx_text(path):
     """
     Take the path of a docx file as argument, return the text in unicode.
@@ -31,25 +25,4 @@ def get_docx_text(path):
         if texts:                                                                       # if a text is found,
             paragraphs.append(''.join(texts))                                           # add it to the paragraphs list
     #return('\n\n'.join(paragraphs))
-    return(paragraphs)                                                                  # return the paragraphs
-
-
-#def get_docx_image(path):
-    #"""
-    #Take the path of a docx file as argument, return the image in pygame.
-    #"""
-    #import zipfile
-    #import os
-    ##import pygame
-    ##images = []
-    #zip_file = zipfile.ZipFile(path, 'r')
-    #for files in zip_file.namelist():
-        #zip_file.extract(files, 'my_dir')
-    
-    #zip_file.close()
-    #file_counter = sum([len(files) for r, d, files in os.walk('./my_dir/word/media/')])
-    ##print file_counter
-    ##for i in range(file_counter):
-        ##images.append([i, pygame.image.load('./my_dir/word/media/image' + str(i+1) + '.png')])
-    ##return images
-    
+    return(paragraphs)                                                                  # return the paragra
