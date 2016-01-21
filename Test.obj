@@ -1,0 +1,103 @@
+(lp0
+(iget_text
+FlashCard
+p1
+(dp2
+S'answer'
+p3
+S' A set of instructions for the program to follow '
+p4
+sS'image'
+p5
+S'none'
+p6
+sS'question'
+p7
+S'Functions'
+p8
+sba(iget_text
+FlashCard
+p9
+(dp10
+g3
+S' Definition bla bla bla bla bla bla bla '
+p11
+sg5
+g6
+sg7
+S'Class'
+p12
+sba(iget_text
+FlashCard
+p13
+(dp14
+g3
+(lp15
+S'-Memes'
+p16
+aS'-More Memes'
+p17
+aS'-Dank Memes '
+p18
+asg5
+g6
+sg7
+S'Steps To Make A Great Program'
+p19
+sba(iget_text
+FlashCard
+p20
+(dp21
+g3
+S' BAD'
+p22
+sg5
+g6
+sg7
+S'Physics'
+p23
+sba(iget_text
+FlashCard
+p24
+(dp25
+g3
+(lp26
+S'-First'
+p27
+aS'-Second'
+p28
+asg5
+g6
+sg7
+S'Another List Test'
+p29
+sba(iget_text
+FlashCard
+p30
+(dp31
+g3
+S' Amazing '
+p32
+sg5
+g6
+sg7
+S'Memes'
+p33
+sba(iget_text
+FlashCard
+p34
+(dp35
+g3
+(lp36
+S'-Hello World '
+p37
+aS'-Memes'
+p38
+aS'-Please Stop Asking Me Questions '
+p39
+asg5
+g6
+sg7
+S'Another Test listzzz'
+p40
+sba.

@@ -4,23 +4,20 @@ import platform
 #import sys
 from get_text import *
 
-#def resource_path(relative):
-#    if hasattr(sys, "_MEIPASS"):
-#        return os.path.join(sys._MEIPASS, relative)
-#    return os.path.join(relative)
-    
-def resource_path(fname):
-    return os.path.join(os.path.dirname(__file__), fname)
+def resource_path(relative):
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, relative)
+    return os.path.join(relative)
 
-#edit_page = resource_path('edit_page.png')
-#colour_picker = resource_path('color_picker.png')
-#open_file = resource_path('open_file.png')
-#door_exit = resource_path('door_exit.png')
+edit_page = resource_path('edit_page.png')
+colour_picker = resource_path('color_picker.png')
+open_file = resource_path('open_file.png')
+door_exit = resource_path('door_exit.png')
 
-edit_page = 'edit_page.png'
-colour_picker = 'color_picker.png'
-open_file = 'open_file.png'
-door_exit = 'door_exit.png'
+#edit_page = 'edit_page.png'
+#colour_picker = 'color_picker.png'
+#open_file = 'open_file.png'
+#door_exit = 'door_exit.png'
 
 class MainWindow(wx.Frame):
     def __init__(self, parent, title):
@@ -179,14 +176,15 @@ class DeckWindow(wx.Frame):
         btnSizer.Add(self.button, 0, wx.ALL, 0)
         btnSizer.Add(self.button3, 0, wx.ALL, 0)
         btnSizer.Add(self.button2, 0, wx.ALL, 0)
-        self.SetMinSize((500,300))
+        self.SetMinSize((300,320))
         self.Show(False)
         self.dirname = ''
 
         
         #adds all sizers to main sizer
+        topSizer.Add(self.toolbar, 0, wx.ALL|wx.EXPAND, 0)
         topSizer.Add(titleSizer, 0, wx.CENTER)
-        topSizer.Add(self.control, 0, wx.ALL|wx.EXPAND, 50)
+        topSizer.Add(self.control, 0, wx.ALL|wx.EXPAND, 30)
         topSizer.Add(self.quote, 0, wx.ALL|wx.EXPAND, 5)
         gridSizer.Add(btnSizer, 0, wx.ALL|wx.CENTER, 0)
         topSizer.Add(gridSizer, 0, wx.ALL|wx.CENTER, 5)
@@ -367,6 +365,6 @@ class DeckWindow(wx.Frame):
 #creates windows and displays them
 app = wx.App(False)
 frame = MainWindow(None, "Editing Window")
-frame2 = DeckWindow(None, -1, "FlashCards")
+frame2 = DeckWindow(None, -1, "Quick Cards")
 frame2.Show()
 app.MainLoop()
