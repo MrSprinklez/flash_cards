@@ -80,6 +80,8 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
                 flash_cards.append(FlashCard(q,a,"grey","none")) #Append Question and answer to flash card 
     full_path = os.path.realpath(fl)
     (path,filename) = os.path.split(full_path)
+    stack_name = os.path.splitext(stack_name)[0]
+    print stack_name
     with open(path+"/"+stack_name+".obj", "wb") as fp: #Open .obj or create new one if doesn't exist 
         pickle.dump(flash_cards, fp) #dump contents into .obj
     
@@ -91,7 +93,7 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
 
 def get_cards(fl): #Function returns flash card lists from object
     if '.obj' not in fl:
-        with open(fl+'.obj', 'rb') as fp:   
+        with open(os.path.splitext(fl)[0]+'.obj', 'rb') as fp:   
             deck = pickle.load(fp)
             return(deck)
     else:
