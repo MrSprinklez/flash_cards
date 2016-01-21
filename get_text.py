@@ -114,8 +114,8 @@ def get_cards(fl): #Function returns flash card lists from object
             return(deck)
         
 def dump_to_obj(path, stack_name, ls):
-    with open(path+"/"+stack_name+"wrong.obj", "wb") as fp: #Open .obj or create new one if doesn't exist 
-        pickle.dump(ls, fp) #dump contents into .obj
+    with open(path+"/"+os.path.splitext(stack_name)[0]+" wrong.obj", "wb") as fp:     #Open .obj or create new one if doesn't exist 
+        pickle.dump(ls, fp)                                     #dump contents of wrong list into new .obj
 
 def data_to_display(deck,num): #Takes data from lists 
     """(lst,int)->(str,str)
