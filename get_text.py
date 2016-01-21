@@ -16,6 +16,9 @@ class FlashCard(): #Defines what attributes flash cards have
         self.image = image #Image on card 
 
 def get_file_type(fl): #Determines file type 
+    """(str)->(str,int) 
+    Returns file type and number of lines in while when given file (with dir if required) as input 
+    """
     if fl.endswith(".txt"): #If .txt
         #if isinstance(fl, unicode): #check if string is unicode
             #fl = fl.encode('utf-8') #Changes to utf 
@@ -32,6 +35,11 @@ def get_file_type(fl): #Determines file type
         return(get_docx_text(fl),len(get_docx_text(fl))) #returns list and len
 
 def get_data(fl,stack_name): #Organize data into Question and answer and turn into .obj
+    """(str,str)->(str)
+    Organizes data in given file into questions and answers and saves info as a flash card object
+    A list of all flash card objects is dumped into a .obj file
+    function returns path of file created 
+    """
     count = 0 #Make count 0 
     flash_cards = []  #List which flash card objects are contained 
     is_list = False #If its a list of answers then this bool becomes true 
@@ -92,6 +100,10 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
     return (path+"/"+stack_name+".obj") #(os.path.realpath(fl)+stack_name+".obj")
 
 def get_cards(fl): #Function returns flash card lists from object
+    """(str)->(lst) 
+    opens .obj file, returns list of objects
+    
+    """
     if '.obj' not in fl:
         with open(os.path.splitext(fl)[0]+'.obj', 'rb') as fp:   
             deck = pickle.load(fp)
@@ -106,4 +118,8 @@ def dump_to_obj(path, stack_name, ls):
         pickle.dump(ls, fp) #dump contents into .obj
 
 def data_to_display(deck,num): #Takes data from lists 
+    """(lst,int)->(str,str)
+    input deck (list of objects) and the question number
+    program outputs the question and answer 
+    """
     return(deck[num].question,deck[num].answer) 
