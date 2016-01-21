@@ -253,7 +253,8 @@ class DeckWindow(wx.Frame):
             if (self.q, self.a) not in self.Wrong and (self.q, self.a) not in self.Right:
                 self.Wrong.append((self.q, self.a))
                 print self.Wrong
-            self.x += 1
+            if self.x < len(self.new_deck)-1:
+                self.x += 1
 
         elif self.x > 0:
             #goes to previous flash card when question is displayed
