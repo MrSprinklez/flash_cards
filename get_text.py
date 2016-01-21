@@ -16,9 +16,6 @@ class FlashCard(): #Defines what attributes flash cards have
         self.image = image #Image on card 
 
 def get_file_type(fl): #Determines file type 
-    """(string)->(string,int) 
-    outputs file type and number of lines of file 
-    """
     if fl.endswith(".txt"): #If .txt
         #if isinstance(fl, unicode): #check if string is unicode
             #fl = fl.encode('utf-8') #Changes to utf 
@@ -35,11 +32,6 @@ def get_file_type(fl): #Determines file type
         return(get_docx_text(fl),len(get_docx_text(fl))) #returns list and len
 
 def get_data(fl,stack_name): #Organize data into Question and answer and turn into .obj
-    """(str,str)->(str)
-    Opens files and sorts them into questions and answers, each q and a is put into an object 
-    return value is the path to the new .obj file where the flash cards are stored 
-    
-    """
     count = 0 #Make count 0 
     flash_cards = []  #List which flash card objects are contained 
     is_list = False #If its a list of answers then this bool becomes true 
@@ -98,22 +90,18 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
     return (path+"/"+stack_name+".obj") #(os.path.realpath(fl)+stack_name+".obj")
 
 def get_cards(fl): #Function returns flash card lists from object
-    """(fl)->(lst) 
-    Opens .obj file and gets list of objects 
-    """
-    if '.obj' not in fl: #if file does not have .obj extention 
-        with open(fl+'.obj', 'rb') as fp:   #open .obj file
-            deck = pickle.load(fp) #get data from .obj
-            return(deck) #return flash card objects from obj 
-    else: 
-        with open(fl, 'rb') as fp: #open .obj  
-            deck = pickle.load(fp) #get data from .obj
-            return(deck)#return deck from .obj
+    if '.obj' not in fl:
+        with open(fl+'.obj', 'rb') as fp:   
+            deck = pickle.load(fp)
+            return(deck)
+    else:
+        with open(fl, 'rb') as fp:   
+            deck = pickle.load(fp)
+            return(deck)
         
+def dump_to_obj(path, stack_name, ls):
+    with open(path+"/"+stack_name+"wrong.obj", "wb") as fp: #Open .obj or create new one if doesn't exist 
+        pickle.dump(ls, fp) #dump contents into .obj
 
 def data_to_display(deck,num): #Takes data from lists 
-    """(lst,int)->(str,str) 
-    Takes data from 
-    
-    """
-    return(deck[num].question,deck[num].answer) #returns question and answer from flash card object 
+    return(deck[num].question,deck[num].answer) 
