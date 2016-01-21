@@ -256,7 +256,8 @@ class DeckWindow(wx.Frame):
             if (self.q, self.a) not in self.Wrong:
                 if (self.q, self.a) in self.Right:
                     self.Right.remove((self.q, self.a))
-                self.Wrong.append((self.q, self.a))
+                #self.Wrong.append((self.q, self.a))
+                self.Wrong.append(self.new_deck[self.x])
                 #print self.Wrong
             if self.x < len(self.new_deck)-1:
                 self.x += 1
