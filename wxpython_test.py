@@ -9,17 +9,6 @@ def resource_path(relative):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)
 
-<<<<<<< HEAD
-#edit_page = resource_path('edit_page.png')
-#colour_picker = resource_path('color_picker.png')
-#open_file = resource_path('open_file.png')
-#door_exit = resource_path('door_exit.png')
-
-edit_page = 'edit_page.png'
-colour_picker = 'color_picker.png'
-open_file = 'open_file.png'
-door_exit = 'door_exit.png'
-=======
 
 # Pictures for compiling
 edit_page = resource_path('edit_page.png')
@@ -32,7 +21,6 @@ door_exit = resource_path('door_exit.png')
 #colour_picker = 'color_picker.png'
 #open_file = 'open_file.png'
 #door_exit = 'door_exit.png'
->>>>>>> f1f239bac670b19787eb650c2599736ac9167c6c
 
 class MainWindow(wx.Frame):
     def __init__(self, parent, title):
