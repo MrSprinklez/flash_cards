@@ -116,6 +116,8 @@ def dump_to_obj(path, stack_name, ls):
         pickle.dump(ls, fp) #dump contents into .obj
 
 def data_to_display(deck,num): #Takes data from lists 
-    """
+    """(lst,int)->(str,str)
+    input deck (list of objects) and the question number
+    program outputs the question and answer 
     """
     return(deck[num].question,deck[num].answer) 
