@@ -58,14 +58,14 @@ class MainWindow(wx.Frame):
         self.dirname = ''
 
     def OnAbout(self,e):
-        """ about program"""
+        """ About program """
         # A message dialog box with an OK button. wx.OK is a standard ID in wxWidgets.
         dlg = wx.MessageDialog( self, "It Does Stuff", "About FlashCard Maker", wx.OK)
         dlg.ShowModal() # Show it
         dlg.Destroy() # finally destroy it when finished.
 
     def OnOpen(self,e):
-        """ Open a file"""
+        """ Open a file """
         self.dirname = ''
         #opens preset dialog box
         dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.OPEN)
@@ -197,11 +197,11 @@ class DeckWindow(wx.Frame):
         topSizer.Fit(self)
         
     def Edit(self,event):
-        """Open Editing window"""
+        """Open Editing window """
         frame.Show(True)
         self.Show(False)
     def Open(self,event):
-        """ Open a file"""
+        """ Open a file """
         #try:
         self.dirname = ''
         #opens default dialog box
@@ -211,7 +211,7 @@ class DeckWindow(wx.Frame):
             self.filename = dlg.GetFilename()
             self.dirname = dlg.GetDirectory()
             File = os.path.join(self.dirname, self.filename)
-            print File
+            #print File
             if ".obj" not in self.filename:
                 #skips step if already a .obj
                 get_data(File,self.filename)
@@ -229,6 +229,7 @@ class DeckWindow(wx.Frame):
         #    dlg.Destroy()
             
     def color(self,event):
+        """ used to change colour """
         #opens default colour picker
         dlg = wx.ColourDialog(None)
         #closes dlg box when pressing ok
@@ -246,7 +247,7 @@ class DeckWindow(wx.Frame):
             self.Refresh()
         
     def Previous(self,event):
-        #previous
+        """previous"""
         #try:
         if "Answer:\n" in self.control.GetValue():
             #appends to wrong list when the answer is displayed
@@ -276,7 +277,7 @@ class DeckWindow(wx.Frame):
         #    dlg.Destroy()
             
     def Next(self,event):
-        #Next
+        """Next"""
         #try:
         if "Answer:\n" in self.control.GetValue():
             #appends to right list when the answer is displayed
@@ -304,7 +305,7 @@ class DeckWindow(wx.Frame):
         #    dlg.Destroy()
             
     def Flip(self,event):
-        #Flip
+        """Flip"""
         #try:
         if self.control.GetValue() == ("Question:\n" +self.q):
             # changes to answer when question is displayed
@@ -340,20 +341,26 @@ class DeckWindow(wx.Frame):
     def Exit(self,event):
         """Exit"""
         if self.control.IsEmpty() == False:
+            #If a deck is selected, open message box
             dlg = wx.MessageDialog( self, "Would you like to save the questions you got wrong?", "Save?", wx.YES | wx.NO | wx.CANCEL)
             result = dlg.ShowModal()
             if result == wx.ID_YES:
+                #if the user presses yes, saves into obj
                 dump_to_obj(self.dirname, self.filename, self.Wrong)
+                #exit program
                 self.Destroy()
                 frame.Destroy()
                 dlg.Destroy()
             elif result == wx.ID_NO:
+                #if the user presses no, exit program
                 self.Destroy()
                 frame.Destroy()
                 dlg.Destroy()
             else:
+                #if the user presses cancel or x button exit dialog box
                 dlg.Destroy()
         else:
+            #if no deck is selected, simply exits
             self.Destroy()
             frame.Destroy()
 
