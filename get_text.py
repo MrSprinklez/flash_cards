@@ -16,6 +16,10 @@ class FlashCard(): #Defines what attributes flash cards have
         self.image = image #Image on card 
 
 def get_file_type(fl): #Determines file type 
+    """
+    (string)->(string,int) 
+    outputs file type and number of lines of file 
+    """
     if fl.endswith(".txt"): #If .txt
         #if isinstance(fl, unicode): #check if string is unicode
             #fl = fl.encode('utf-8') #Changes to utf 
@@ -90,15 +94,15 @@ def get_data(fl,stack_name): #Organize data into Question and answer and turn in
     return (path+"/"+stack_name+".obj") #(os.path.realpath(fl)+stack_name+".obj")
 
 def get_cards(fl): #Function returns flash card lists from object
-    if '.obj' not in fl:
-        with open(fl+'.obj', 'rb') as fp:   
-            deck = pickle.load(fp)
-            return(deck)
-    else:
-        with open(fl, 'rb') as fp:   
-            deck = pickle.load(fp)
-            return(deck)
+    if '.obj' not in fl: #if file does not have .obj extention 
+        with open(fl+'.obj', 'rb') as fp:   #open .obj file
+            deck = pickle.load(fp) #get data from .obj
+            return(deck) #return flash card objects from obj 
+    else: 
+        with open(fl, 'rb') as fp: #open .obj  
+            deck = pickle.load(fp) #get data from .obj
+            return(deck)#return deck from .obj
         
 
 def data_to_display(deck,num): #Takes data from lists 
-    return(deck[num].question,deck[num].answer) 
+    return(deck[num].question,deck[num].answer) #returns question and answer from flash card object 
