@@ -204,31 +204,31 @@ class DeckWindow(wx.Frame):
         self.Show(False)
     def Open(self,event):
         """ Open a file """
-        #try:
-        self.dirname = ''
-        #opens default dialog box
-        dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.OPEN)
-        if dlg.ShowModal() == wx.ID_OK:
-            #gets filename and directory
-            self.filename = dlg.GetFilename()
-            self.dirname = dlg.GetDirectory()
-            File = os.path.join(self.dirname, self.filename)
-            #print File
-            if ".obj" not in self.filename:
-                #skips step if already a .obj
-                get_data(File,self.filename)
-            self.new_deck = get_cards(File)
-            #sets current flashcard number
-            self.x = 0
-            #sets values to question and answer
-            (self.q,self.a) = data_to_display(self.new_deck,self.x)
-            #displays first question
-            self.control.SetValue("Question:\n" +str(self.q))
-        dlg.Destroy()
-        #except:
-        #    dlg = wx.MessageDialog( self, "Error: Selected file is not a valid format", "Error", wx.OK | wx.ICON_WARNING)
-        #    dlg.ShowModal()
-        #    dlg.Destroy()
+        try:
+            self.dirname = ''
+            #opens default dialog box
+            dlg = wx.FileDialog(self, "Choose a file", self.dirname, "", "*.*", wx.OPEN)
+            if dlg.ShowModal() == wx.ID_OK:
+                #gets filename and directory
+                self.filename = dlg.GetFilename()
+                self.dirname = dlg.GetDirectory()
+                File = os.path.join(self.dirname, self.filename)
+                #print File
+                if ".obj" not in self.filename:
+                    #skips step if already a .obj
+                    get_data(File,self.filename)
+                self.new_deck = get_cards(File)
+                #sets current flashcard number
+                self.x = 0
+                #sets values to question and answer
+                (self.q,self.a) = data_to_display(self.new_deck,self.x)
+                #displays first question
+                self.control.SetValue("Question:\n" +str(self.q))
+            dlg.Destroy()
+        except:
+            dlg = wx.MessageDialog( self, "Error: Selected file is not a valid format", "Error", wx.OK | wx.ICON_WARNING)
+            dlg.ShowModal()
+            dlg.Destroy()
             
     def color(self,event):
         """ used to change colour """
@@ -250,95 +250,95 @@ class DeckWindow(wx.Frame):
         
     def Previous(self,event):
         """previous"""
-        #try:
-        if "Answer:\n" in self.control.GetValue():
-            #appends to wrong list when the answer is displayed
-            if (self.q, self.a) not in self.Wrong:
-                if (self.q, self.a) in self.Right:
-                    self.Right.remove((self.q, self.a))
-                self.Wrong.append((self.q, self.a))
-                #print self.Wrong
-            if self.x < len(self.new_deck)-1:
-                self.x += 1
+        try:
+            if "Answer:\n" in self.control.GetValue():
+                #appends to wrong list when the answer is displayed
+                if (self.q, self.a) not in self.Wrong:
+                    if (self.q, self.a) in self.Right:
+                        self.Right.remove((self.q, self.a))
+                    self.Wrong.append((self.q, self.a))
+                    #print self.Wrong
+                if self.x < len(self.new_deck)-1:
+                    self.x += 1
 
-        elif self.x > 0:
-            #goes to previous flash card when question is displayed
-            self.x -= 1
-        (self.q,self.a) = data_to_display(self.new_deck,self.x)
-        self.control.SetValue("Question:\n" +str(self.q))
-        
-        #sets button labels back to previous and next and refreshes
-        self.button.SetLabel("Previous")
-        self.button2.SetLabel("Next")
-        self.quote.SetLabel("")
-        self.Refresh()
-
-        #except:
-        #    dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
-        #    dlg.ShowModal()
-        #    dlg.Destroy()
-            
-    def Next(self,event):
-        """Next"""
-        #try:
-        if "Answer:\n" in self.control.GetValue():
-            #appends to right list when the answer is displayed
-            if (self.q, self.a) not in self.Right:
-                if (self.q, self.a) in self.Wrong:
-                    self.Wrong.remove((self.q, self.a))
-                self.Right.append((self.q, self.a))
-                #print self.Right
-            
-        if self.x < len(self.new_deck)-1:
-            #goes to next flash card when question is displayed
-            self.x += 1
-        (self.q,self.a) = data_to_display(self.new_deck,self.x)
-        self.control.SetValue("Question:\n" +str(self.q))
-
-        #sets button labels back to previous and next and refreshes
-        self.button.SetLabel("Previous")
-        self.button2.SetLabel("Next")
-        self.quote.SetLabel("")
-        self.Refresh()
-
-        #except:
-        #    dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
-        #    dlg.ShowModal()
-        #    dlg.Destroy()
-            
-    def Flip(self,event):
-        """Flip"""
-        #try:
-        if self.control.GetValue() == ("Question:\n" +self.q):
-            # changes to answer when question is displayed
-            if type(self.a) == list:
-                # formats answer when its a list
-                temp = "Answer:\n"
-                for i in range(len(self.a)):
-                    temp += self.a[i]+"\n"
-                self.control.SetValue(temp)
-            else:
-                #formats answer when not a list
-                self.control.SetValue("Answer:\n" +str(self.a))
-            #changes button labels
-            self.button.SetLabel("Wrong")
-            self.button2.SetLabel("Right")
-            #changes empty quote to ask if you got it right
-            self.quote.SetLabel("Did you get the question right?")
-            #refresh to display labels and quote
-            self.Refresh()
-        else:
-            #changes to question when answer
+            elif self.x > 0:
+                #goes to previous flash card when question is displayed
+                self.x -= 1
+            (self.q,self.a) = data_to_display(self.new_deck,self.x)
             self.control.SetValue("Question:\n" +str(self.q))
-            #changes button labels
+            
+            #sets button labels back to previous and next and refreshes
             self.button.SetLabel("Previous")
             self.button2.SetLabel("Next")
             self.quote.SetLabel("")
             self.Refresh()
-        #except:
-        #    dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
-        #    dlg.ShowModal()
-        #    dlg.Destroy()
+
+        except:
+            dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
+            dlg.ShowModal()
+            dlg.Destroy()
+            
+    def Next(self,event):
+        """Next"""
+        try:
+            if "Answer:\n" in self.control.GetValue():
+                #appends to right list when the answer is displayed
+                if (self.q, self.a) not in self.Right:
+                    if (self.q, self.a) in self.Wrong:
+                        self.Wrong.remove((self.q, self.a))
+                    self.Right.append((self.q, self.a))
+                    #print self.Right
+                
+            if self.x < len(self.new_deck)-1:
+                #goes to next flash card when question is displayed
+                self.x += 1
+            (self.q,self.a) = data_to_display(self.new_deck,self.x)
+            self.control.SetValue("Question:\n" +str(self.q))
+
+            #sets button labels back to previous and next and refreshes
+            self.button.SetLabel("Previous")
+            self.button2.SetLabel("Next")
+            self.quote.SetLabel("")
+            self.Refresh()
+
+        except:
+            dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
+            dlg.ShowModal()
+            dlg.Destroy()
+            
+    def Flip(self,event):
+        """Flip"""
+        try:
+            if self.control.GetValue() == ("Question:\n" +self.q):
+                # changes to answer when question is displayed
+                if type(self.a) == list:
+                    # formats answer when its a list
+                    temp = "Answer:\n"
+                    for i in range(len(self.a)):
+                        temp += self.a[i]+"\n"
+                    self.control.SetValue(temp)
+                else:
+                    #formats answer when not a list
+                    self.control.SetValue("Answer:\n" +str(self.a))
+                #changes button labels
+                self.button.SetLabel("Wrong")
+                self.button2.SetLabel("Right")
+                #changes empty quote to ask if you got it right
+                self.quote.SetLabel("Did you get the question right?")
+                #refresh to display labels and quote
+                self.Refresh()
+            else:
+                #changes to question when answer
+                self.control.SetValue("Question:\n" +str(self.q))
+                #changes button labels
+                self.button.SetLabel("Previous")
+                self.button2.SetLabel("Next")
+                self.quote.SetLabel("")
+                self.Refresh()
+        except:
+            dlg = wx.MessageDialog( self, "Error: No Deck Selected", "Error", wx.OK | wx.ICON_WARNING)
+            dlg.ShowModal()
+            dlg.Destroy()
 
     def Exit(self,event):
         """Exit"""
